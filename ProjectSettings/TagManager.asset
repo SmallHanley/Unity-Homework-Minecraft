@@ -12,6 +12,7 @@ TagManager:
   - cube3
   - cube4
   - cube5
+  - human
   layers:
   - Default
   - TransparentFX

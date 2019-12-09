@@ -23,10 +23,17 @@ public class PlayerControl : MonoBehaviour {
         //just kidding
         animator = GetComponent<Animator>();
         sound = GetComponent<AudioSource>();
+        transform.position = new Vector3(0, 0, 0);
+    }
+    private zombie_contorller viking_position;
+    void Awake()
+    {
+        viking_position = GameObject.FindObjectOfType<zombie_contorller>();
     }
 	
 	// Update is called once per frame
 	void Update () {
+        viking_position.updateposition(transform.position);
         transform.tag = "Untagged";
         animator.SetFloat("speed", 0f);
         move();
@@ -138,5 +145,10 @@ public class PlayerControl : MonoBehaviour {
                 isGround = false;
             }
         }
+      
     }
+   
+
 }
+
+
