@@ -78,7 +78,7 @@ public class cube : MonoBehaviour {
             for(int j = -20; j < 21; j++)
             {
                 Transform c = Instantiate(dirt3);
-                c.tag = "cube2";
+                c.tag = "cube3";
                 c.parent = transform;
                 c.localPosition = new Vector3(i, -0.5f, j);
                 
@@ -112,7 +112,7 @@ public class cube : MonoBehaviour {
                 else
                 {
                     Transform c = Instantiate(dirt5);
-                    c.tag = "cube2";
+                    c.tag = "cube5";
                     c.parent = transform;
                     c.localPosition = new Vector3(i, 4.5f, j);
                 }
@@ -125,7 +125,7 @@ public class cube : MonoBehaviour {
                 for (int j = 50; j < 56; j++)
                 {
                     Transform c = Instantiate(dirt1);
-                    c.tag = "cube2";
+                    c.tag = "cube1";
                     c.parent = transform;
                     c.localPosition = new Vector3(i, 5.5f+k, j);
                 }
@@ -140,7 +140,7 @@ public class cube : MonoBehaviour {
                 for (int j = 15; j < 20; j++)
                 {
                     Transform c = Instantiate(dirt4);
-                    c.tag = "cube2";
+                    c.tag = "cube4";
                     c.parent = transform;
                     c.localPosition = new Vector3(i - 50, 5.5f + k, j - 50);
                 }

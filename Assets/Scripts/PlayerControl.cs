@@ -10,7 +10,6 @@ public class PlayerControl : MonoBehaviour {
     private float moveing_speed = 5f;
     private Rigidbody tr;
     private bool isGround;
-    private int jumpTimes;
     public Animator animator;
     private AudioSource sound;
     public AudioClip[] ac = new AudioClip[3];
@@ -18,7 +17,6 @@ public class PlayerControl : MonoBehaviour {
     void Start () {
         tr = GetComponent<Rigidbody>();
         isGround = true;
-        jumpTimes = 2;
         //transform.localScale = new Vector3(2, 2, 2);
         //just kidding
         animator = GetComponent<Animator>();
@@ -53,7 +51,6 @@ public class PlayerControl : MonoBehaviour {
         if(collision.gameObject.tag == "ground" || collision.gameObject.tag == "cube1" || collision.gameObject.tag == "cube2" || collision.gameObject.tag == "cube3" || collision.gameObject.tag == "cube4" || collision.gameObject.tag == "cube5")
         {
             isGround = true;
-            jumpTimes = 2;
         }
     }
 
@@ -139,11 +136,7 @@ public class PlayerControl : MonoBehaviour {
             sound.clip = ac[0];
             sound.Play();
             sound.loop = false;
-            jumpTimes--;
-            if (jumpTimes == 0)
-            {
-                isGround = false;
-            }
+            isGround = false;
         }
       
     }
