@@ -48,10 +48,11 @@ public class PlayerControl : MonoBehaviour {
     }
     void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.tag == "ground" || collision.gameObject.tag == "cube1" || collision.gameObject.tag == "cube2" || collision.gameObject.tag == "cube3" || collision.gameObject.tag == "cube4" || collision.gameObject.tag == "cube5")
+        if(collision.gameObject.tag == "monster" || collision.gameObject.tag == "ground" || collision.gameObject.tag == "cube1" || collision.gameObject.tag == "cube2" || collision.gameObject.tag == "cube3" || collision.gameObject.tag == "cube4" || collision.gameObject.tag == "cube5")
         {
             isGround = true;
         }
+  
     }
 
     void move()

@@ -4,19 +4,41 @@ using UnityEngine;
 
 public class zombie_contorller : MonoBehaviour {
     Vector3 viking_position;
-    string status = "";
-    private float moving_speed = 5f;
-	// Use this for initialization
-	void Start () {
+   
+    private float moving_speed = 3f;
+    Animator animator;
+    Rigidbody monster;
+    private bool check_collide;
+    private AudioSource sound;
+    public AudioClip[] bc = new AudioClip[2];
+    private CharacterController Cc;
+    // Use this for initialization
+    void Start () {
         transform.position = new Vector3(3, 0, 0);
+        animator = GetComponent<Animator>();
+        monster = GetComponent<Rigidbody>();
+        sound = GetComponent<AudioSource>();
+        //Cc = GetComponent<CharacterController>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
         transform.LookAt(viking_position);
-        
-        if (transform.position.x < 19 && transform.position.x > -19 && transform.position.z < 19 && transform.position.z > -19 && distance() > 0.5)
+        //transform.LookAt(new Vector3(viking_position.x, 0, viking_position.z));
+        if(distance() > 0.5f && !sound.isPlaying) {
+            animator.SetFloat("status", 1f);//walk
+            sound.clip = bc[0];
+            sound.Play();
+        }
+        if (distance() < 0.5 && !sound.isPlaying)
         {
+            animator.SetFloat("status", 3f);
+            sound.clip = bc[1];
+            sound.Play();
+        }
+        //transform.position.x < 19 && transform.position.x > -19 && transform.position.z < 19 && transform.position.z > -19 &&
+        if ( distance() > 0.5)
+        {/*
             if (viking_position.x > transform.position.x)
             {
                 transform.position += Time.deltaTime * moving_speed * new Vector3(1, 0, 0);
@@ -32,7 +54,11 @@ public class zombie_contorller : MonoBehaviour {
             else if (viking_position.z < transform.position.z)
             {
                 transform.position -= Time.deltaTime * moving_speed * new Vector3(0, 0, 1);
-            }
+            }*/
+            transform.position +=  Time.deltaTime * moving_speed * transform.forward;
+
+            //Cc.Move(Time.deltaTime * moving_speed * transform.forward);
+            check_collide = false;
         }
     }
     public void updateposition(Vector3 p)
@@ -45,9 +71,20 @@ public class zombie_contorller : MonoBehaviour {
     }
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.name == "Viking_Sword") Debug.Log("collide monster");
+        if (collision.gameObject.name == "Viking_Sword")
+        {
+
+            //Debug.Log("collide monster");
+        }
+        if (collision.gameObject.tag == "cube2" || collision.gameObject.tag == "cube3" || collision.gameObject.tag == "cube4" || collision.gameObject.tag == "cube5" || collision.gameObject.tag == "cube1")
+        {
+            check_collide = true;
+            monster.AddForce(Vector3.up * 3000);
+            //Debug.Log("hit wall");
+        }
 
     }
+    
 
 
 }
