@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.AI;
 public class zombie_contorller : MonoBehaviour {
     Vector3 viking_position;
    
@@ -12,29 +12,59 @@ public class zombie_contorller : MonoBehaviour {
     private AudioSource sound;
     public AudioClip[] bc = new AudioClip[2];
     private CharacterController Cc;
+    public NavMeshAgent agent;
+    private PlayerControl monster_forward;
+    Vector3 tmp;
+    //private GameObject hide;
     // Use this for initialization
     void Start () {
         transform.position = new Vector3(3, 0, 0);
+        tmp = new Vector3(0, 0, 0);
         animator = GetComponent<Animator>();
         monster = GetComponent<Rigidbody>();
         sound = GetComponent<AudioSource>();
-        //Cc = GetComponent<CharacterController>();
-	}
-	
-	// Update is called once per frame
-	void Update () {
+        Cc = GetComponent<CharacterController>();
+        agent = GetComponent<NavMeshAgent>();
+        //hide = GetComponent<GameObject>();
+        //agent.SetDestination(viking_position);
+    }
+    void Awake()
+    {
+        monster_forward = GameObject.FindObjectOfType<PlayerControl>();
+    }
+    void generator()
+    {
+        if (project_sun.sun_y < 0)
+        {
+            transform.position = tmp;
+            
+        }
+        else
+        {
+            transform.position = new Vector3(10000, 0, 0);
+        }
+    }
+    // Update is called once per frame
+    void Update () {
+        generator();
         transform.LookAt(viking_position);
+        monster_forward.updateforward(transform.forward);
+        //agent.SetDestination(viking_position);
         //transform.LookAt(new Vector3(viking_position.x, 0, viking_position.z));
-        if(distance() > 0.5f && !sound.isPlaying) {
+        if (distance() > 0.5f && !sound.isPlaying) {
             animator.SetFloat("status", 1f);//walk
             sound.clip = bc[0];
             sound.Play();
         }
-        if (distance() < 0.5 && !sound.isPlaying)
+        
+        if (distance() < 2)
         {
+            if (!sound.isPlaying)
+            {
+                sound.clip = bc[1];
+                sound.Play();
+            }
             animator.SetFloat("status", 3f);
-            sound.clip = bc[1];
-            sound.Play();
         }
         //transform.position.x < 19 && transform.position.x > -19 && transform.position.z < 19 && transform.position.z > -19 &&
         if ( distance() > 0.5)
@@ -56,10 +86,17 @@ public class zombie_contorller : MonoBehaviour {
                 transform.position -= Time.deltaTime * moving_speed * new Vector3(0, 0, 1);
             }*/
             transform.position +=  Time.deltaTime * moving_speed * transform.forward;
-
-            //Cc.Move(Time.deltaTime * moving_speed * transform.forward);
-            check_collide = false;
+            if(project_sun.sun_y < 0)tmp = transform.position;
+            //Cc.SimpleMove(Time.deltaTime * moving_speed * Ddistance(viking_position , transform.position));
+            //Cc.SimpleMove((Time.deltaTime * moving_speed * transform.forward).normalized);
+            //Debug.Log(transform.forward);
+            //Debug.Log(transform.position);
+           
         }
+    }
+    private Vector3 Ddistance(Vector3 a, Vector3 b)
+    {
+        return b - a;
     }
     public void updateposition(Vector3 p)
     {
@@ -74,11 +111,11 @@ public class zombie_contorller : MonoBehaviour {
         if (collision.gameObject.name == "Viking_Sword")
         {
 
-            //Debug.Log("collide monster");
+            Debug.Log("collide monster");
         }
         if (collision.gameObject.tag == "cube2" || collision.gameObject.tag == "cube3" || collision.gameObject.tag == "cube4" || collision.gameObject.tag == "cube5" || collision.gameObject.tag == "cube1")
         {
-            check_collide = true;
+            
             monster.AddForce(Vector3.up * 3000);
             //Debug.Log("hit wall");
         }

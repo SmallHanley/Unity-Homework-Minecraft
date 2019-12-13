@@ -11,10 +11,10 @@ public class CameraControl : MonoBehaviour {
         transform.localPosition = new Vector3(2.17f, 1.878f, 3.363f);
         img = GameObject.Find("img");
     }
-	
+    
 	// Update is called once per frame
 	void Update () {
-        
+ 
         if (Input.GetKeyDown(KeyCode.C))
         {
             if(mode == 1)
