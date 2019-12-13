@@ -30,6 +30,7 @@ public class PlayerControl : MonoBehaviour {
     void Awake()
     {
         viking_position = GameObject.FindObjectOfType<zombie_contorller>();
+       
     }
 	public void updateforward(Vector3 monster_vector)
     {
@@ -38,6 +39,7 @@ public class PlayerControl : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         viking_position.updateposition(transform.position);
+        viking_position.update_player_forward(transform.forward);
         transform.tag = "Untagged";
         animator.SetFloat("speed", 0f);
         move();

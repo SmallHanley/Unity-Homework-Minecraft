@@ -18,10 +18,15 @@ public class cube_mouse : MonoBehaviour {
     public RectTransform white;
     GameObject cube;
     private int mode;
+    zombie_contorller zombie;
     // Use this for initialization
     void Start () {
         mode = 1;
 	}
+    void Awake()
+    {
+      zombie  = GameObject.FindObjectOfType<zombie_contorller>();
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -55,6 +60,12 @@ public class cube_mouse : MonoBehaviour {
                         text5.text = (int.Parse(text5.text) + 1).ToString();
                     }
                     Destroy(raycashit.collider.gameObject);
+                }
+
+                if (raycashit.collider.gameObject.tag == "monster")
+                {
+                    Debug.Log("attack monster");
+                    zombie.attack_force();
                 }
             }
         }
@@ -147,6 +158,8 @@ public class cube_mouse : MonoBehaviour {
                         z = raycashit.collider.gameObject.transform.position.z - cube.transform.localScale.z;
                     }
                     cube.transform.position = new Vector3(x, y, z);
+
+
                 }
                 if (raycashit.collider.gameObject.tag == "ground")
                 {
