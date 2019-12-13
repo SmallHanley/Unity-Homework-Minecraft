@@ -14,8 +14,8 @@ public class PlayerControl : MonoBehaviour {
     private AudioSource sound;
     public AudioClip[] ac = new AudioClip[3];
     private Vector3 monster_forward;
+    private int blood;
     CharacterController Cc;
- 
     // Use this for initialization
     void Start () {
         tr = GetComponent<Rigidbody>();
@@ -24,6 +24,7 @@ public class PlayerControl : MonoBehaviour {
         sound = GetComponent<AudioSource>();
         transform.position = new Vector3(0, 0, 0);
         Cc = GetComponent<CharacterController>();
+        blood = 10;
     }
     private zombie_contorller viking_position;
     void Awake()
@@ -49,7 +50,6 @@ public class PlayerControl : MonoBehaviour {
             Scene cur = SceneManager.GetActiveScene();
             SceneManager.LoadScene(0);
         }
-        
     }
     void OnCollisionEnter(Collision collision)
     {
@@ -60,7 +60,15 @@ public class PlayerControl : MonoBehaviour {
         if(collision.gameObject.tag == "monster")
         {
             //Debug.Log("fly");
-            //tr.AddForce(-monster_forward * 1000f);
+            tr.AddForce(monster_forward * 500f);
+            string heart_name = "heart" + blood.ToString();
+            GameObject heart_gameobject = GameObject.Find(heart_name);
+            Destroy(heart_gameobject);
+            blood--;
+            if(blood == 0)
+            {
+                Application.Quit();
+            }
         }
   
     }
