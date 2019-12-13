@@ -67,12 +67,14 @@ public class PlayerControl : MonoBehaviour {
             GameObject heart_gameobject = GameObject.Find(heart_name);
             Destroy(heart_gameobject);
             blood--;
-            if(blood == 0)
+            if(blood <= 0)
             {
-                Application.Quit();
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+                Scene cur = SceneManager.GetActiveScene();
+                SceneManager.LoadScene(0);
             }
         }
-  
     }
 
     void move()
@@ -80,28 +82,24 @@ public class PlayerControl : MonoBehaviour {
         if (Input.GetKey(KeyCode.W))
         {
             transform.localPosition += moveing_speed * Time.deltaTime * transform.forward;
-            //Cc.Move(moveing_speed * Time.deltaTime * transform.forward);
             animator.SetFloat("speed", moveing_speed);
             transform.tag = "walk";
         }
         if (Input.GetKey(KeyCode.S))
         {
             transform.localPosition -= moveing_speed * Time.deltaTime * transform.forward;
-            //Cc.Move(-moveing_speed * Time.deltaTime * transform.forward);
             animator.SetFloat("speed", moveing_speed);
             transform.tag = "walk";
         }
         if (Input.GetKey(KeyCode.A))
         {
             transform.localPosition -= moveing_speed * Time.deltaTime * transform.right;
-            //Cc.Move(-moveing_speed * Time.deltaTime * transform.right);
             animator.SetFloat("speed", moveing_speed);
             transform.tag = "walk";
         }
         if (Input.GetKey(KeyCode.D))
         {
             transform.localPosition += moveing_speed * Time.deltaTime * transform.right;
-            //Cc.Move(moveing_speed * Time.deltaTime * transform.right);
             animator.SetFloat("speed", moveing_speed);
             transform.tag = "walk";
         }
@@ -164,10 +162,7 @@ public class PlayerControl : MonoBehaviour {
             sound.loop = false;
             isGround = false;
         }
-      
     }
-   
-
 }
 
 

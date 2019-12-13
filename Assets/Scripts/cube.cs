@@ -19,15 +19,13 @@ public class cube : MonoBehaviour {
                 Transform c = Instantiate(dirt3);
                 c.tag = "cube3";
                 c.parent = transform;
-                c.localPosition = new Vector3(i, -0.5f, j);
-                
+                c.localPosition = new Vector3(i, -0.5f, j); 
             }
         }
         for (int k = 1; k < 6; k++)
         {
             for (int i = -20-k*3; i < 21+k*3; i++)
             {
-
                 for (int j = -20-5*3; j < 21+5*3; j++)
                 {
                     if (j  >= -15-3*k && j <= 15 + 3*k && i >= -15-3*k && i <= 15+3*k) continue;
@@ -37,9 +35,7 @@ public class cube : MonoBehaviour {
                         c.tag = "cube2";
                         c.parent = transform;
                         c.localPosition = new Vector3(i, -0.5f + k, j);
-                       
                     }
-
                 }
             }
         }
@@ -98,23 +94,6 @@ public class cube : MonoBehaviour {
                 }
             }
         }
-        /*
-        for (int k = 0; k < 10; k++)
-        {
-            for (int i = -5; i < 5; i++)
-            {
-                for (int j = -5; j < 5; j++)
-                {
-                    Transform c = Instantiate(dirt3);
-                    c.tag = "cube3";
-                    c.parent = transform;
-                    c.localPosition = new Vector3(-50 , , +50);
-                }
-            }
-        }
-        */
-
-
     }
 	
 	// Update is called once per frame

@@ -16,7 +16,6 @@ public class zombie_contorller : MonoBehaviour {
     private PlayerControl monster_forward;
     private Vector3 player_forward;
     Vector3 tmp;
-    //private GameObject hide;
     // Use this for initialization
     void Start () {
         transform.position = new Vector3(3, 0, 0);
@@ -24,9 +23,6 @@ public class zombie_contorller : MonoBehaviour {
         animator = GetComponent<Animator>();
         monster = GetComponent<Rigidbody>();
         sound = GetComponent<AudioSource>();
-    
-        //hide = GetComponent<GameObject>();
-        //agent.SetDestination(viking_position);
     }
     public void revive()
     {
@@ -59,12 +55,10 @@ public class zombie_contorller : MonoBehaviour {
     // Update is called once per frame
     void FixedUpdate() {
         generator();
-        //transform.LookAt(viking_position);
         monster_forward.updateforward(transform.forward);
-        //agent.SetDestination(viking_position);
         transform.LookAt(new Vector3(viking_position.x, 0, viking_position.z));
         if (distance() > 0.5f && !sound.isPlaying) {
-            animator.SetFloat("status", 1f);//walk
+            animator.SetFloat("status", 1f);
             sound.clip = bc[0];
             sound.Play();
         }
@@ -78,35 +72,10 @@ public class zombie_contorller : MonoBehaviour {
             }
             animator.SetFloat("status", 3f);
         }
-        //transform.position.x < 19 && transform.position.x > -19 && transform.position.z < 19 && transform.position.z > -19 &&
         if ( distance() > 0.5)
-        {/*
-            if (viking_position.x > transform.position.x)
-            {
-                transform.position += Time.deltaTime * moving_speed * new Vector3(1, 0, 0);
-            }
-            else if (viking_position.x < transform.position.x)
-            {
-                transform.position -= Time.deltaTime * moving_speed * new Vector3(1, 0, 0);
-            }
-            if (viking_position.z > transform.position.z)
-            {
-                transform.position += Time.deltaTime * moving_speed * new Vector3(0, 0, 1);
-            }
-            else if (viking_position.z < transform.position.z)
-            {
-                transform.position -= Time.deltaTime * moving_speed * new Vector3(0, 0, 1);
-            }*/
+        {
             transform.position +=  Time.deltaTime * moving_speed * transform.forward;
-            //if(project_sun.sun_y < 0)tmp = transform.position;
-            //Cc.SimpleMove(Time.deltaTime * moving_speed * Ddistance(viking_position , transform.position));
-            //Cc.SimpleMove((Time.deltaTime * moving_speed * transform.forward).normalized);
-            //Debug.Log(transform.forward);
-            //Debug.Log(transform.position);
-           
-        }
-       
-        
+        }  
     }
     private Vector3 Ddistance(Vector3 a, Vector3 b)
     {
@@ -120,22 +89,4 @@ public class zombie_contorller : MonoBehaviour {
     {
         return Mathf.Abs(Vector3.Distance( transform.position , viking_position));
     }
-    void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.name == "Viking_Sword")
-        {
-
-            //Debug.Log("collide monster");
-        }
-        if (collision.gameObject.tag == "cube2" || collision.gameObject.tag == "cube3" || collision.gameObject.tag == "cube4" || collision.gameObject.tag == "cube5" || collision.gameObject.tag == "cube1")
-        {
-            
-            //monster.AddForce(Vector3.up * 3000);
-            //Debug.Log("hit wall");
-        }
-
-    }
-    
-
-
 }

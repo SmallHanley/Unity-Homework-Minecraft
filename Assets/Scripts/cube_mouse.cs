@@ -31,6 +31,12 @@ public class cube_mouse : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         key_input();
+        left_mouse();
+        right_mouse();
+    }
+
+    void left_mouse()
+    {
         if (Input.GetMouseButtonDown(0))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -39,7 +45,7 @@ public class cube_mouse : MonoBehaviour {
             {
                 if (raycashit.transform.tag == "cube1" || raycashit.transform.tag == "cube2" || raycashit.transform.tag == "cube3" || raycashit.transform.tag == "cube4" || raycashit.transform.tag == "cube5")
                 {
-                    if(raycashit.transform.tag == "cube1")
+                    if (raycashit.transform.tag == "cube1")
                     {
                         text1.text = (int.Parse(text1.text) + 1).ToString();
                     }
@@ -69,6 +75,10 @@ public class cube_mouse : MonoBehaviour {
                 }
             }
         }
+    }
+
+    void right_mouse()
+    {
         if (Input.GetMouseButtonDown(1))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -77,9 +87,9 @@ public class cube_mouse : MonoBehaviour {
             {
                 if (raycashit.collider.gameObject.tag == "cube1" || raycashit.collider.gameObject.tag == "cube2" || raycashit.collider.gameObject.tag == "cube3" || raycashit.collider.gameObject.tag == "cube4" || raycashit.collider.gameObject.tag == "cube5")
                 {
-                    if(mode == 1)
+                    if (mode == 1)
                     {
-                        if(int.Parse(text1.text) <= 0)
+                        if (int.Parse(text1.text) <= 0)
                         {
                             return;
                         }
@@ -127,7 +137,7 @@ public class cube_mouse : MonoBehaviour {
                         y = raycashit.collider.gameObject.transform.position.y;
                         z = raycashit.collider.gameObject.transform.position.z;
                     }
-                    else if(raycashit.point.x <= raycashit.collider.gameObject.transform.position.x - cube.transform.localScale.x / 2 + 0.00001 && raycashit.point.x >= raycashit.collider.gameObject.transform.position.x - cube.transform.localScale.x / 2 - 0.00001)
+                    else if (raycashit.point.x <= raycashit.collider.gameObject.transform.position.x - cube.transform.localScale.x / 2 + 0.00001 && raycashit.point.x >= raycashit.collider.gameObject.transform.position.x - cube.transform.localScale.x / 2 - 0.00001)
                     {
                         x = raycashit.collider.gameObject.transform.position.x - cube.transform.localScale.x;
                         y = raycashit.collider.gameObject.transform.position.y;
@@ -213,7 +223,6 @@ public class cube_mouse : MonoBehaviour {
             }
         }
     }
-
     void key_input()
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))

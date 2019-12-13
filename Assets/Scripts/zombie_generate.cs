@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class zombie_generate : MonoBehaviour {
 
-    public Transform ghost;
+    public GameObject ghost;
 
     // Use this for initialization
     void Start () {
-        /*
-        Transform c = Instantiate(ghost);
-        c.position = new Vector3(5, 0, 5);
+        
+        GameObject c = Instantiate(ghost);
+        c.transform.position = new Vector3(5, 0, 5);
         c.tag = "monster";
-        */
+        c.AddComponent<BoxCollider>();
+        c.AddComponent<AudioSource>();
     }
 	
 	// Update is called once per frame
